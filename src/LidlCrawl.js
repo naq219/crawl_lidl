@@ -15,6 +15,7 @@ export class lidlCrawl {
         const url2 = "";
         const url1 = "http://static.lemyde.com/other/lidl_sale.html";
         const url = "https://www-lidl-de.translate.goog/q/query/supersale?sort=deliveryStartDate-desc&idsOnly=false&productsOnly=false&_x_tr_sl=auto&_x_tr_tl=vi&_x_tr_hl=vi&_x_tr_pto=wapp&_x_tr_hist=true"
+        const url0="https://www.lidl.de/q/query/supersale?sort=deliveryStartDate-desc&idsOnly=false&productsOnly=true";
         const crawler = new PlaywrightCrawler({
             // Use the requestHandler to process each of the crawled pages.
             async requestHandler({ request, page, enqueueLinks, log }) {
@@ -42,8 +43,8 @@ export class lidlCrawl {
                     if(discount0.count>0) discount= discount0.first().textContent();
                    
                     const price = await element.locator('.m-price__price').textContent();
-                    const link =  await element.locator('.grid-box__pdp-link').first().getAttribute('href');
-
+                    let link =  await element.locator('.grid-box__pdp-link').first().getAttribute('href');
+                    if (!link.includes("http")) link ='https://www.lidl.de/'+link;
                     log.info(`img ${'https://www.lidl.de/'+discount}`);
 
                     const result= {
@@ -67,7 +68,7 @@ export class lidlCrawl {
 
         });
 
-        await crawler.run([url]);
+        await crawler.run([url0]);
 
 
 

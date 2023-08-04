@@ -27,12 +27,6 @@ const crawlerLidl = new lidlCrawl();
  await crawlerLidl.crawl1();
 
 
-// const url= await Notifi.shortenLink("https://www.google.com/search?q=api.telegram.org%2Fbot+sendPhoto&sxsrf=AB5stBjC8P4Q8jrzwLIGD2o-gPSH7SyFyg%3A1691138854714&ei=JrvMZPGZK8-32roPzI-GgAo&ved=0ahUKEwjxxM2Vz8KAAxXPm1YBHcyHAaAQ4dUDCA8&uact=5&oq=api.telegram.org%2Fbot+sendPhoto&gs_lp=Egxnd3Mtd2l6LXNlcnAiHmFwaS50ZWxlZ3JhbS5vcmcvYm90IHNlbmRQaG90bzIGEAAYBRgeSPctUPwEWKQscAF4AZABAJgBvAGgAbQPqgEEMC4xMrgBA8gBAPgBAcICChAAGEcY1gQYsAPCAgQQIxgn4gMEGAAgQYgGAZAGCA&sclient=gws-wiz-serp");
-
-// console.log(url);
-
-
-
 
 
 function log2File(content){

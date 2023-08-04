@@ -9,7 +9,7 @@ export class Database {
     }
 
     async save(params) {
-        let sequelize = new Sequelize('sqlite:crawl.sqlite');
+        let sequelize = new Sequelize('sqlite:storage/crawl.sqlite');
         const Data = sequelize.define('Data', {
             id: {
                 type: DataTypes.INTEGER,
