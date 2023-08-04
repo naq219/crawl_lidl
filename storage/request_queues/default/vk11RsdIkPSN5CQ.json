@@ -1,0 +1,9 @@
+{
+	"id": "vk11RsdIkPSN5CQ",
+	"json": "{\"id\":\"vk11RsdIkPSN5CQ\",\"url\":\"https://www-lidl-de.translate.goog/q/query/supersale?sort=deliveryStartDate-desc&idsOnly=false&productsOnly=false&_x_tr_sl=auto&_x_tr_tl=vi&_x_tr_hl=vi&_x_tr_pto=wapp&_x_tr_hist=true\",\"uniqueKey\":\"https://www-lidl-de.translate.goog/q/query/supersale?_x_tr_hist=true&_x_tr_hl=vi&_x_tr_pto=wapp&_x_tr_sl=auto&_x_tr_tl=vi&idsOnly=false&productsOnly=false&sort=deliveryStartDate-desc\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
+	"method": "GET",
+	"orderNo": 1691114733069,
+	"retryCount": 0,
+	"uniqueKey": "https://www-lidl-de.translate.goog/q/query/supersale?_x_tr_hist=true&_x_tr_hl=vi&_x_tr_pto=wapp&_x_tr_sl=auto&_x_tr_tl=vi&idsOnly=false&productsOnly=false&sort=deliveryStartDate-desc",
+	"url": "https://www-lidl-de.translate.goog/q/query/supersale?sort=deliveryStartDate-desc&idsOnly=false&productsOnly=false&_x_tr_sl=auto&_x_tr_tl=vi&_x_tr_hl=vi&_x_tr_pto=wapp&_x_tr_hist=true"
+}
