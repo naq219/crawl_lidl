@@ -1,6 +1,6 @@
 
 import { Sequelize, DataTypes } from 'sequelize';
-
+import { Notifi } from './notify.js';
 export class Database {
 
     sequelize;
@@ -35,10 +35,14 @@ export class Database {
 
         if(check&& check.length>0) return;
 
+       
+
 
         var test = Data.build(params);
 
         test.save();
+
+        Notifi.newSale(params);
 
         //const jane = await User.create(params);
     }

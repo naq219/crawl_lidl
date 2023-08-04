@@ -31,7 +31,7 @@ export class lidlCrawl {
                 log.info(`test nao ${await listProduct.count()}`);
                 const lengthList = await listProduct.count();
 
-                for (let index = 0; index < 10; index++) {
+                for (let index = 0; index < 2; index++) {
                     const element = await listProduct.nth(index);
                     const html1 = await element.innerHTML();
                     const img0 = await element.locator('img').first().getAttribute('src'); //
@@ -42,31 +42,23 @@ export class lidlCrawl {
                     if(discount0.count>0) discount= discount0.first().textContent();
                    
                     const price = await element.locator('.m-price__price').textContent();
-                    const link = 'https://www.lidl.de/'+ await element.locator('.grid-box__pdp-link').first().getAttribute('href');
+                    const link =  await element.locator('.grid-box__pdp-link').first().getAttribute('href');
 
                     log.info(`img ${'https://www.lidl.de/'+discount}`);
 
                     const result= {
-                        id:1,
+                        
                         img:img0,
                         title:title,
                         discount:discount,
                         price:price,
-                        link:link
+                        url:link
                     }
+                    result.price = result.price.trim();
 
-                    Dataset.pushData(result);
-
-                    const abc ={
-                        "id": 1,
-                        "img": "https://www.lidl.de/assets/gcp43f6c4751a324313b51299d2e2458dd9.jpeg",
-                        "title": "Kleinkinder/Kinder Mädchen T-Shirt, 2 Stück, aus reiner Baumwolle",
-                        "discount": "0",
-                        "price": "\n                    6.99\n                ",
-                        "link": "https://www.lidl.de//p/kleinkinder-kinder-maedchen-t-shirt-2-stueck-aus-reiner-baumwolle/p100351636#searchTrackingMasterId=Product.100351636&searchTrackingTitle=Kleinkinder%252FKinder%2BM%25C3%25A4dchen%2BT-Shirt%252C%2B2%2BSt%25C3%25BCck%252C%2Baus%2Breiner%2BBaumwolle&searchTrackingPageSize=24&searchTrackingPage=1&searchTrackingEvent=click&searchTrackingId=Product.100351636&searchTrackingOrigPos=1&searchTrackingPos=1&searchTrackingOrigPageSize=24&searchTrackingChannel=DE&list=search"
-                    }
-                    new Database().save(abc);
-                    
+                    //Dataset.pushData(result);
+                    new Database().save(result);
+                   
 
                 }
 
@@ -75,59 +67,26 @@ export class lidlCrawl {
 
         });
 
-        //await crawler.run([url1]);
+        await crawler.run([url]);
 
+
+
+       
         const abc ={
-           
-            img: "img2",
-            title: "title2",
-            discount: "0",
-            price: "\n                    6.99\n                ",
-            url: "link3"
+            "id": 1,
+            "img": "https://www.lidl.de/assets/gcp43f6c4751a324313b51299d2e2458dd9.jpeg",
+            "title": "Kleinkinder/Kinder Mädchen T-Shirt, 2 Stück, aus reiner Baumwolle",
+            "discount": "0",
+            "price": "\n                    6.99\n                ",
+            "url": "https://www.lidl.de//p/kleinkinder-kinder-maedchen-t-shirt-2-stueck-aus-reiner-baumwolle/p100351636#searchTrackingMasterId=Product.100351636&searchTrackingTitle=Kleinkinder%252FKinder%2BM%25C3%25A4dchen%2BT-Shirt%252C%2B2%2BSt%25C3%25BCck%252C%2Baus%2Breiner%2BBaumwolle&searchTrackingPageSize=24&searchTrackingPage=1&searchTrackingEvent=click&searchTrackingId=Product.100351636&searchTrackingOrigPos=1&searchTrackingPos=1&searchTrackingOrigPageSize=24&searchTrackingChannel=DE&list=search"
         }
-        new Database().save(abc);
-
-        let sequelize = new Sequelize('sqlite:/home/quangan/Documents/crawlee/crawl_lidl/crawl.sqlite');
-        const User1 = sequelize.define("User1", {
-            firstName: {
-              type: Sequelize.STRING,
-            },
-            isActive: {
-              type: Sequelize.BOOLEAN,
-              defaultValue: false,
-            },
-          });
-          
-          await User1.sync();
+        //new Database().save(abc);
 
 
 
     }
 
 
-    async isSelectorExists(_page, selector) {
-        return await this._page.$(selector).catch(() => null) !== null;
-    }
-
-    static async getTextContent(element, locator1) {
-        try {
-
-            setTimeout(() => {
-                return null;
-            }, 1000);
-
-            const discount = await element.locator(locator1).textContent();
-            return discount;
-
-
-        } catch (error) {
-            log.error('loii 5453');
-        }
-        finally {
-
-        }
-        return null;
-    }
 
 
 }
