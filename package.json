@@ -6,7 +6,9 @@
     "dependencies": {
         "crawlee": "^3.0.0",
         "fs": "^0.0.1-security",
-        "playwright": "*"
+        "playwright": "*",
+        "sequelize": "^6.32.1",
+        "sqlite3": "^5.1.6"
     },
     "scripts": {
         "start": "node src/main.js",

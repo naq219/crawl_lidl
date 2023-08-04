@@ -1,11 +1,15 @@
 import { PlaywrightCrawler, Dataset, Log } from 'crawlee';
 import fs from 'fs';
 import { MyLog } from './myLog.js';
+import { Sequelize, DataTypes } from 'sequelize';
+import { Database } from './database.js';
 export class lidlCrawl {
 
-   
-    constructor() { }
-    
+
+    constructor() {
+        Dataset.open();
+     }
+
     async crawl1() {
         //this.log2File("startss \n");
         const url2 = "";
@@ -19,6 +23,7 @@ export class lidlCrawl {
                 //    await log2.logTest(html);
                 //const test = await page.locator('//li[id="product_0"]'); 
 
+
                 const listProduct = await page.locator('li.s-grid__item');
                 if (listProduct.count == 0) {
                     return;
@@ -28,27 +33,41 @@ export class lidlCrawl {
 
                 for (let index = 0; index < 10; index++) {
                     const element = await listProduct.nth(index);
-                    const html1= await element.innerHTML();
+                    const html1 = await element.innerHTML();
                     const img0 = await element.locator('img').first().getAttribute('src'); //
                     const title = await element.locator('[data-qa-label="product-grid-box-title"]').innerText();
-                   try {
-                    
-                    
-                        const discount0 = await element.locator('[data-qa-label="product-price-discount"]');
-                        let discount = '';
-                        if(discount0.textContent()) discount= await discount0.innerHTML();
-                        log.info('==='+discount);
-                     
-                   } catch (error) {
-                    log.error('loii discorunt'+ await element.innerHTML());
-                   }
-
                    
-
+                    const discount0 = await element.locator('[data-qa-label="product-price-discount"]');
+                    let discount= '0';
+                    if(discount0.count>0) discount= discount0.first().textContent();
+                   
                     const price = await element.locator('.m-price__price').textContent();
-                    const link =  await element.locator('.grid-box__pdp-link').first().getAttribute('href');
+                    const link = 'https://www.lidl.de/'+ await element.locator('.grid-box__pdp-link').first().getAttribute('href');
 
-                    //log.info(`img ${'https://www.lidl.de/'+link}`);
+                    log.info(`img ${'https://www.lidl.de/'+discount}`);
+
+                    const result= {
+                        id:1,
+                        img:img0,
+                        title:title,
+                        discount:discount,
+                        price:price,
+                        link:link
+                    }
+
+                    Dataset.pushData(result);
+
+                    const abc ={
+                        "id": 1,
+                        "img": "https://www.lidl.de/assets/gcp43f6c4751a324313b51299d2e2458dd9.jpeg",
+                        "title": "Kleinkinder/Kinder Mädchen T-Shirt, 2 Stück, aus reiner Baumwolle",
+                        "discount": "0",
+                        "price": "\n                    6.99\n                ",
+                        "link": "https://www.lidl.de//p/kleinkinder-kinder-maedchen-t-shirt-2-stueck-aus-reiner-baumwolle/p100351636#searchTrackingMasterId=Product.100351636&searchTrackingTitle=Kleinkinder%252FKinder%2BM%25C3%25A4dchen%2BT-Shirt%252C%2B2%2BSt%25C3%25BCck%252C%2Baus%2Breiner%2BBaumwolle&searchTrackingPageSize=24&searchTrackingPage=1&searchTrackingEvent=click&searchTrackingId=Product.100351636&searchTrackingOrigPos=1&searchTrackingPos=1&searchTrackingOrigPageSize=24&searchTrackingChannel=DE&list=search"
+                    }
+                    new Database().save(abc);
+                    
+
                 }
 
 
@@ -56,18 +75,59 @@ export class lidlCrawl {
 
         });
 
-        await crawler.run([url]);
+        //await crawler.run([url1]);
 
+        const abc ={
+           
+            img: "img2",
+            title: "title2",
+            discount: "0",
+            price: "\n                    6.99\n                ",
+            url: "link3"
+        }
+        new Database().save(abc);
+
+        let sequelize = new Sequelize('sqlite:/home/quangan/Documents/crawlee/crawl_lidl/crawl.sqlite');
+        const User1 = sequelize.define("User1", {
+            firstName: {
+              type: Sequelize.STRING,
+            },
+            isActive: {
+              type: Sequelize.BOOLEAN,
+              defaultValue: false,
+            },
+          });
+          
+          await User1.sync();
 
 
 
     }
 
 
-    async isSelectorExists(_page,selector) {
+    async isSelectorExists(_page, selector) {
         return await this._page.$(selector).catch(() => null) !== null;
-      }
+    }
 
+    static async getTextContent(element, locator1) {
+        try {
+
+            setTimeout(() => {
+                return null;
+            }, 1000);
+
+            const discount = await element.locator(locator1).textContent();
+            return discount;
+
+
+        } catch (error) {
+            log.error('loii 5453');
+        }
+        finally {
+
+        }
+        return null;
+    }
 
 
 }
