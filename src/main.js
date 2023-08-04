@@ -2,7 +2,7 @@
 import { PlaywrightCrawler, Dataset } from 'crawlee';
 import fs from 'fs';
 import { lidlCrawl } from './LidlCrawl.js';
-import cron from 'node-cron';
+
 import { Notifi } from './notify.js';
 // PlaywrightCrawler crawls the web using a headless
 // browser controlled by the Playwright library.
