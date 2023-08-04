@@ -32,7 +32,7 @@ export class lidlCrawl {
                 log.info(`test nao ${await listProduct.count()}`);
                 const lengthList = await listProduct.count();
 
-                for (let index = 0; index < 2; index++) {
+                for (let index = 0; index < 5; index++) {
                     const element = await listProduct.nth(index);
                     const html1 = await element.innerHTML();
                     const img0 = await element.locator('img').first().getAttribute('src'); //
@@ -67,6 +67,8 @@ export class lidlCrawl {
             },
 
         });
+
+        
 
         await crawler.run([url0]);
 
