@@ -1,7 +1,9 @@
 import fs from 'fs';
+import { configDotenv } from 'dotenv';
+
 export class MyLog{
     constructor() { }
-
+    configDotenv
      async logTest(content){
 
         fs.writeFile('test.html', content, err => {
@@ -12,9 +14,9 @@ export class MyLog{
         });
     }
 
-    appen2File(content){
+    static appenLog(content){
 
-        fs.appendFile('test.html', content, err => {
+        fs.appendFile(process.env.LOG_FOLDER+'testlidl.html', content, err => {
         if (err) {
             console.error(err);
         }

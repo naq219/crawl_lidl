@@ -4,7 +4,7 @@ import { MyLog } from './myLog.js';
 import { Sequelize, DataTypes } from 'sequelize';
 import { Database } from './database.js';
 export class lidlCrawl {
-     urls = ['https://www.lidl.de/q/query/supersale'];
+      
     /**
      https://www.lidl.de/q/brand/topmove/b1774?sort=discountPercentage-desc&idsOnly=false&productsOnly=false
 
@@ -29,10 +29,13 @@ export class lidlCrawl {
 
 
                 const listProduct = await page.locator('li.s-grid__item');
-                if (listProduct.count == 0) {
+                const countList= await listProduct.count();
+                if (countList == 0) {
                     return;
                 }
-                log.info(`test nao ${await listProduct.count()}`);
+                log.info(`test nao ${countList}`);
+                MyLog.appenLog(`\ncountList=${countList}`);
+
                 const lengthList = await listProduct.count();
 
                 for (let index = 0; index < 5; index++) {
@@ -60,7 +63,8 @@ export class lidlCrawl {
                     }
                     result.price = result.price.trim();
 
-                    //Dataset.pushData(result);
+                    MyLog.appenLog(`\n title=${title}`);
+
                     new Database().save(result);
                    
 
@@ -72,10 +76,10 @@ export class lidlCrawl {
         });
 
         
+        const urls = ['https://www.google.com/search?q=nodejs+current+folder&oq=nodejs+current+folder&aqs=chrome..69i57j0i19i22i30l6.4110j0j7&sourceid=chrome&ie=UTF-8'];
+        await crawler.run(["google.com"]);
 
-        await crawler.run(urls);
-
-
+        
 
 
 

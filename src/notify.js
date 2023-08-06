@@ -1,5 +1,6 @@
 
 import axios from "axios";
+import { configDotenv } from "dotenv";
 export class Notifi {
     static async newSale(content) {
 
@@ -24,7 +25,7 @@ export class Notifi {
         
 
 
-        axios.get(`http://apiv2.lemyde.com/api/notify/send_message?ott=telegram&channel=@lemyde_spm&content=` + msg.toString()).then(response => {
+        axios.get(`http://apiv2.lemyde.com/api/notify/send_message?ott=telegram&channel=${process.env.TELEGRAM_CHANEL}&content=` + msg.toString()).then(response => {
             console.log(response);
         });
 
