@@ -21,12 +21,18 @@ export class Notifi {
 
         //const msg2= encodeURI(msg);
 
-        
+        //http://dbnode2.lemyde.com:3080/postzalo/?channel=abc&text=que1&image=https://www.lidl.de/assets/gcpaaa7d06b2c4c4e80bdb3f5dec41bdc4a.jpeg
 
+
+        axios.get(`http://dbnode2.lemyde.com:3080/postzalo/?channel=abc&text=${msg}&image=${encodeURI(content.img)}`).then(response => {
+            console.log(response);
+        });
 
         axios.get(`http://apiv2.lemyde.com/api/notify/send_message?ott=telegram&channel=@lemyde_spm&content=` + msg.toString()).then(response => {
             console.log(response);
         });
+
+
 
     }
 
